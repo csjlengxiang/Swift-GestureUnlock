@@ -82,7 +82,7 @@ class Circle: UIView {
     var state: CircleState = CircleState.Normal {
         didSet{
             self.setNeedsDisplay()
-            println("\(row) \(col) set as \(state.hashValue)")
+            //println("\(row) \(col) set as \(state.hashValue)")
         }
     }
     var angle: CGFloat = 0

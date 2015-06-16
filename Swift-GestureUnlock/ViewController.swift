@@ -23,7 +23,6 @@ class ViewController: UIViewController {
         
         self.view.addSubview(unlock)
         
-        
         var btn = UIButton()
         btn.frame = CGRect(x: 0,y: 0,width: 50,height: 50)
         btn.setTitle("hehe", forState: UIControlState.Normal)
