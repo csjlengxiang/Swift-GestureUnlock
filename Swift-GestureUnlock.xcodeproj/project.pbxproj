@@ -13,8 +13,8 @@
 		6465793B1B2EB2BD005935E4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6465793A1B2EB2BD005935E4 /* Images.xcassets */; };
 		6465793E1B2EB2BD005935E4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6465793C1B2EB2BD005935E4 /* LaunchScreen.xib */; };
 		6465794A1B2EB2BD005935E4 /* Swift_GestureUnlockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646579491B2EB2BD005935E4 /* Swift_GestureUnlockTests.swift */; };
-		646579551B2EB3B4005935E4 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646579541B2EB3B4005935E4 /* CircleView.swift */; };
 		6465795B1B2EB4D7005935E4 /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6465795A1B2EB4D7005935E4 /* Circle.swift */; };
+		6488707B1B2FC04B004D474F /* Unlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488707A1B2FC04B004D474F /* Unlock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +38,8 @@
 		646579431B2EB2BD005935E4 /* Swift-GestureUnlockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Swift-GestureUnlockTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		646579481B2EB2BD005935E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		646579491B2EB2BD005935E4 /* Swift_GestureUnlockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_GestureUnlockTests.swift; sourceTree = "<group>"; };
-		646579541B2EB3B4005935E4 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircleView.swift; path = CircleView/CircleView.swift; sourceTree = "<group>"; };
 		6465795A1B2EB4D7005935E4 /* Circle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Circle.swift; path = CircleView/Circle.swift; sourceTree = "<group>"; };
+		6488707A1B2FC04B004D474F /* Unlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Unlock.swift; path = CircleView/Unlock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,8 +120,8 @@
 		646579531B2EB301005935E4 /* CircleView */ = {
 			isa = PBXGroup;
 			children = (
-				646579541B2EB3B4005935E4 /* CircleView.swift */,
 				6465795A1B2EB4D7005935E4 /* Circle.swift */,
+				6488707A1B2FC04B004D474F /* Unlock.swift */,
 			);
 			name = CircleView;
 			sourceTree = "<group>";
@@ -226,10 +226,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				646579551B2EB3B4005935E4 /* CircleView.swift in Sources */,
 				6465795B1B2EB4D7005935E4 /* Circle.swift in Sources */,
 				646579361B2EB2BD005935E4 /* ViewController.swift in Sources */,
 				646579341B2EB2BD005935E4 /* AppDelegate.swift in Sources */,
+				6488707B1B2FC04B004D474F /* Unlock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +425,7 @@
 				6465794F1B2EB2BD005935E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		646579501B2EB2BD005935E4 /* Build configuration list for PBXNativeTarget "Swift-GestureUnlockTests" */ = {
 			isa = XCConfigurationList;
@@ -433,6 +434,7 @@
 				646579521B2EB2BD005935E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

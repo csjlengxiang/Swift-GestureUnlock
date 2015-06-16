@@ -75,16 +75,19 @@ class Circle: UIView {
     static let edgeWidth: CGFloat = 1.2
     static let inRadio: CGFloat = 0.4
     static let trLength: CGFloat = 10.0
-    static let radius: CGFloat = 30.0
+    //static let radius: CGFloat = 30.0 //这货主要是给外面设置的
     static let trPosRadio: CGFloat = 0.8
     static let trLenRadio: CGFloat = 0.4
     
-    var state: CircleState = CircleState.Selected {
+    var state: CircleState = CircleState.Normal {
         didSet{
             self.setNeedsDisplay()
+            println("\(row) \(col) set as \(state.hashValue)")
         }
     }
     var angle: CGFloat = 0
+    var row: Int!
+    var col: Int!
         //{
         //看起来并没有什么用，因为角度设定的为新碰到一个圆，此时状态会更新。注意先更新角度，再更新状态即可少刷新一次
 //        didSet{
@@ -102,13 +105,19 @@ class Circle: UIView {
 }
 // mark - 设置angle
 extension Circle{
-    func setAagle(fromPoint: CGPoint, toPoint: CGPoint){
-        var lhs = toPoint.y - fromPoint.y
-        var rhs = toPoint.x - fromPoint.x
-        //println("\(lhs) \(rhs)")
-        angle = atan2(lhs, rhs) + CGFloat(M_PI_2)
-        //println(angle)
+    func setAagle(nextCircle: Circle){
+        var lhs = nextCircle.col - self.col
+        var rhs = nextCircle.row - self.row
+
+        angle = atan2(CGFloat(lhs), CGFloat(rhs)) + CGFloat(M_PI_2)
     }
+//    func setAagle(fromPoint: CGPoint, toPoint: CGPoint){
+//        var lhs = toPoint.y - fromPoint.y
+//        var rhs = toPoint.x - fromPoint.x
+//        //println("\(lhs) \(rhs)")
+//        angle = atan2(lhs, rhs) + CGFloat(M_PI_2)
+//        //println(angle)
+//    }
 }
 // mark - 画图形
 extension Circle{
@@ -116,7 +125,7 @@ extension Circle{
         
         var ctx = UIGraphicsGetCurrentContext()
         
-        setAagle(CGPoint(x: 0, y: 0), toPoint: CGPoint(x: 0, y: 0))
+        //setAagle(CGPoint(x: 0, y: 0), toPoint: CGPoint(x: 0, y: 0))
         //state = CircleState.LSelected
         
         transformCtx(ctx, rect: rect)
@@ -158,7 +167,6 @@ extension Circle{
             y: start,
             width: len * 2,
             height: len * 2)
-        println(circleRect)
         CGPathAddEllipseInRect(path, nil, circleRect)
         CGContextAddPath(ctx, path)
         state.getInColor().set()

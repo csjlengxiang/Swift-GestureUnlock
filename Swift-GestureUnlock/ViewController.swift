@@ -19,14 +19,26 @@ class ViewController: UIViewController {
         
         self.view.backgroundColor = rgba(13, g: 52, b: 89, a: 1) //UIColor(red: 13, green: 52, blue: 89, alpha: 1)
         
-        var circle: Circle = Circle()
+        unlock = Unlock(frame: nil)
         
-        circle.frame = CGRect(x: 0,y: 100,width: 60,height: 60)
-        self.view.addSubview(circle)
-        
+        self.view.addSubview(unlock)
         
         
-        // Do any additional setup after loading the view, typically from a nib.
+        var btn = UIButton()
+        btn.frame = CGRect(x: 0,y: 0,width: 50,height: 50)
+        btn.setTitle("hehe", forState: UIControlState.Normal)
+        btn.addTarget(self, action: "clicked:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.view.addSubview(btn)
+        
+    }
+    var unlock: Unlock!
+    func clicked(sender: AnyObject){
+        unlock.circles.enumerateObjectsUsingBlock{
+            (_circle, idx, stop) in
+            var circle = _circle as! Circle
+            circle.state = CircleState.Error
+        }
     }
 
     override func didReceiveMemoryWarning() {
