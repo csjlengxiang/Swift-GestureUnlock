@@ -1,4 +1,4 @@
 # Swift-GestureUnlock
 swift版支付宝解锁仿造
 
-http://pan.baidu.com/s/1hq1X2HA
+![gif](https://github.com/csjlengxiang/Swift-GestureUnlock/blob/master/out.gif)
