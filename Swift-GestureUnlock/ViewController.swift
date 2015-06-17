@@ -33,11 +33,7 @@ class ViewController: UIViewController {
     }
     var unlock: Unlock!
     func clicked(sender: AnyObject){
-        unlock.circles.enumerateObjectsUsingBlock{
-            (_circle, idx, stop) in
-            var circle = _circle as! Circle
-            circle.state = CircleState.Error
-        }
+        unlock.processWrong(displayTime: 10000)
     }
 
     override func didReceiveMemoryWarning() {

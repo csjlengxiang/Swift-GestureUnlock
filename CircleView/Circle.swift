@@ -1,11 +1,3 @@
-//
-//  Circle.swift
-//  Swift-GestureUnlock
-//
-//  Created by csj on 15/6/15.
-//  Copyright (c) 2015年 csj. All rights reserved.
-//
-
 import UIKit
 
 enum CircleState{
@@ -29,9 +21,8 @@ enum CircleState{
         case .LError:
             return CircleState.red
         default:
-            break
+            return CircleState.tra
         }
-        return UIColor.clearColor()
     }
     func getInColor()->UIColor {
         switch self {
@@ -72,33 +63,23 @@ enum CircleState{
 
 class Circle: UIView {
     // 外圆线宽
-    static let edgeWidth: CGFloat = 1.2
-    static let inRadio: CGFloat = 0.4
-    static let trLength: CGFloat = 10.0
-    //static let radius: CGFloat = 30.0 //这货主要是给外面设置的
-    static let trPosRadio: CGFloat = 0.8
-    static let trLenRadio: CGFloat = 0.4
-    
+    static let edgeWidthRadio: CGFloat = 0.02 //取圆直径的百分比
+    static let inRadio: CGFloat = 0.4 //取内圆占外圆的百分比
+    static let trPosRadio: CGFloat = 0.8 //以圆心为中心，偏移半径的百分比
+    static let trLenRadio: CGFloat = 0.4 //同上
     var state: CircleState = CircleState.Normal {
         didSet{
             self.setNeedsDisplay()
-            //println("\(row) \(col) set as \(state.hashValue)")
         }
     }
     var angle: CGFloat = 0
     var row: Int!
     var col: Int!
-        //{
-        //看起来并没有什么用，因为角度设定的为新碰到一个圆，此时状态会更新。注意先更新角度，再更新状态即可少刷新一次
-//        didSet{
-//            self.setNeedsDisplay()
-//        }
-//    }
+
     init(){
         super.init(frame: CGRectZero)
         backgroundColor = UIColor.clearColor()
     }
-
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -108,52 +89,39 @@ extension Circle{
     func setAagle(nextCircle: Circle){
         var lhs = nextCircle.col - self.col
         var rhs = nextCircle.row - self.row
-
         angle = atan2(CGFloat(lhs), CGFloat(rhs)) + CGFloat(M_PI_2)
     }
-//    func setAagle(fromPoint: CGPoint, toPoint: CGPoint){
-//        var lhs = toPoint.y - fromPoint.y
-//        var rhs = toPoint.x - fromPoint.x
-//        //println("\(lhs) \(rhs)")
-//        angle = atan2(lhs, rhs) + CGFloat(M_PI_2)
-//        //println(angle)
-//    }
 }
 // mark - 画图形
 extension Circle{
     override func drawRect(rect: CGRect) {
-        
         var ctx = UIGraphicsGetCurrentContext()
-        
-        //setAagle(CGPoint(x: 0, y: 0), toPoint: CGPoint(x: 0, y: 0))
-        //state = CircleState.LSelected
-        
         transformCtx(ctx, rect: rect)
         drawOutCircle(ctx, rect: rect)
         drawInCircle(ctx, rect: rect)
         drawTrangle(ctx, rect: rect)
     }
-    
     // 中心旋转
     func transformCtx(ctx: CGContextRef, rect: CGRect){
-        var len = rect.width / 2
+        let len = rect.width / 2
         CGContextTranslateCTM(ctx, len, len)
         CGContextRotateCTM(ctx, angle)
         CGContextTranslateCTM(ctx, -len, -len)
     }
     // 绘制外圆
     func drawOutCircle(ctx: CGContextRef, rect: CGRect){
-        var len = rect.width
+        let len = rect.width
+        let edgeWidth = len * Circle.edgeWidthRadio
         // 注意ios绘制的线是，内外以path为分割各一半，于是edgeWidth要取一半...可以调大edgeWidth试下
         var circleRect = CGRect(
-            x: Circle.edgeWidth / 2,
-            y: Circle.edgeWidth / 2,
-            width: len - Circle.edgeWidth,
-            height: len - Circle.edgeWidth)
+            x: edgeWidth / 2,
+            y: edgeWidth / 2,
+            width: len - edgeWidth,
+            height: len - edgeWidth)
         var path = CGPathCreateMutable()
         CGPathAddEllipseInRect(path, nil, circleRect)
         CGContextAddPath(ctx, path)
-        CGContextSetLineWidth(ctx, Circle.edgeWidth)
+        CGContextSetLineWidth(ctx, edgeWidth)
         state.getOutColor().set()
         CGContextStrokePath(ctx)
     }
@@ -178,7 +146,6 @@ extension Circle{
         var len = rect.size.width / 2 * Circle.trLenRadio
         var startX = rect.size.width / 2
         var startY = rect.size.width / 2 * (1.0 - Circle.trPosRadio)
-        //println("\(len) \(startX) \(startY)")
         CGPathMoveToPoint(path, nil, startX, startY);
         CGPathAddLineToPoint(path, nil, startX - len/2, startY + len/2);
         CGPathAddLineToPoint(path, nil, startX + len/2, startY + len/2);
