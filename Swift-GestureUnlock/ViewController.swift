@@ -19,8 +19,8 @@ class ViewController: UIViewController {
         
         self.view.backgroundColor = rgba(13, g: 52, b: 89, a: 1) //UIColor(red: 13, green: 52, blue: 89, alpha: 1)
         
+        //unlock = Unlock(frame: CGRect(x: 0,y: 20,width: 150,height: 150))
         unlock = Unlock(frame: nil)
-        
         self.view.addSubview(unlock)
         
         var btn = UIButton()
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     }
     var unlock: Unlock!
     func clicked(sender: AnyObject){
-        unlock.processWrong(displayTime: 10000)
+        unlock.processWrong(displayTime: 1000)
     }
 
     override func didReceiveMemoryWarning() {
