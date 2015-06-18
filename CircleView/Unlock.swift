@@ -38,6 +38,7 @@ class Unlock: UIView {
     var circles: NSMutableArray = []
     var touchedCircles: NSMutableArray = []
     var curPoint: CGPoint = CGPointZero
+    var result: ((NSString)->Void)?
     
     override init(frame: CGRect? = nil){
         var nframe = frame ?? Unlock.frame
@@ -173,6 +174,7 @@ extension Unlock{
         }
         println(ret)
         // delegate 交给将结果委托到上级业务函数，若要消失调用processRight，爆红再消失调用processWrong
+        result!(ret as NSString)
     }
     func processWrong(displayTime: UInt64 = 600){
         turnError()

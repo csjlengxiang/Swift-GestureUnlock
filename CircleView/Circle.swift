@@ -3,7 +3,7 @@ import UIKit
 enum CircleState{
     case Normal, Selected, Error, LSelected, LError
     
-    private static let white = CircleState.rgba(241, g: 241, b: 241, a: 1.0)
+    static let white = CircleState.rgba(241, g: 241, b: 241, a: 1.0)
     static let blue = CircleState.rgba(34, g: 178, b: 246, a: 1.0)
     static let red = CircleState.rgba(254, g: 82, b: 92, a: 1.0)
     static let tra = UIColor.clearColor()

@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>C920C7AB-0EC5-4445-A606-373246ABFAB7</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Swift-GestureUnlock</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>99C55D05F146A1056DBCDD93A8579D970F5C956B</key>
 		<string>https://github.com/csjlengxiang/Swift-GestureUnlock.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Swift-GestureUnlock.xcodeproj</string>
+	<string>Swift-GestureUnlock.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>99C55D05F146A1056DBCDD93A8579D970F5C956B</key>
