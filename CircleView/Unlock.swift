@@ -173,8 +173,7 @@ extension Unlock{
             ret += "\(idx)"
         }
         println(ret)
-        // delegate 交给将结果委托到上级业务函数，若要消失调用processRight，爆红再消失调用processWrong
-        result!(ret as NSString)
+        result?(ret as NSString)
     }
     func processWrong(displayTime: UInt64 = 600){
         turnError()
@@ -182,6 +181,15 @@ extension Unlock{
     }
     func processRight(displayTime: UInt64 = 600){
         turnNormalAndDisappear(displayTime)
+    }
+    func processClear(){
+        self.touchedCircles.enumerateObjectsUsingBlock{
+            (_circle, _, _) in
+            var circle = _circle as! Circle
+            circle.state = CircleState.Normal
+        }
+        self.touchedCircles.removeAllObjects()
+        self.state = UnlockState.Normal
     }
     func turnError(){
         state = UnlockState.Error // 变线的颜色
@@ -203,14 +211,7 @@ extension Unlock{
     func turnNormalAndDisappear(displayTime: UInt64){
         var time = dispatch_time(DISPATCH_TIME_NOW, (Int64)(displayTime * NSEC_PER_MSEC))
         dispatch_after(time, dispatch_get_main_queue()) {
-            println("手势消失")
-            self.touchedCircles.enumerateObjectsUsingBlock{
-                (_circle, _, _) in
-                var circle = _circle as! Circle
-                circle.state = CircleState.Normal
-            }
-            self.touchedCircles.removeAllObjects()
-            self.state = UnlockState.Normal
+            self.processClear()
         }
     }
 }

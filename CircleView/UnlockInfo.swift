@@ -1,19 +1,13 @@
-//
-//  UnlockInfo.swift
-//  Swift-GestureUnlock
-//
-//  Created by csj on 15/6/18.
-//  Copyright (c) 2015年 csj. All rights reserved.
-//
-
 import UIKit
 
 class UnlockInfo: UIView {
     static let circleRadiusRadio: CGFloat = 0.76 //对于9宫格，圆相对九宫格的大小
     static let edgeMarginRadio: CGFloat = 0.445 //相对于屏幕宽度的，九宫相对于屏幕边缘的距离
     static let edgeWidthRadio: CGFloat = 0.13 //相对于frame的宽度
+    static let normalColor: UIColor = CircleState.white
+    static let selectedColor: UIColor = CircleState.blue
     
-    // 默认,屏幕3/5位置，且与屏幕边框edgeMargin = UIScreen.mainScreen().bounds.size.width * edgeMarginRadio值
+    // 默认,屏幕1.2/5位置，且与屏幕边框edgeMargin = UIScreen.mainScreen().bounds.size.width * edgeMarginRadio值
     static let frame = CGRect(
         x: UIScreen.mainScreen().bounds.size.width * UnlockInfo.edgeMarginRadio,
         y: UIScreen.mainScreen().bounds.size.height * 1.2 / 5 - (UIScreen.mainScreen().bounds.size.width - UIScreen.mainScreen().bounds.size.width * UnlockInfo.edgeMarginRadio * 2) / 2,
@@ -39,7 +33,6 @@ class UnlockInfo: UIView {
                 var x = CGFloat(row) * (circleMargin + circleRadius) + circleMargin / 2.0
                 var y = CGFloat(col) * (circleMargin + circleRadius) + circleMargin / 2.0
                 var nframe = CGRect(x: x, y: y, width: circleRadius, height: circleRadius)
-                
                 if (psw != nil) && contain(psw!, num: row * 3 + col) {
                     drawInCircle(ctx, rect: nframe)
                 }
@@ -63,13 +56,11 @@ class UnlockInfo: UIView {
             y: rect.origin.y + edgeWidth / 2,
             width: len - edgeWidth,
             height: len - edgeWidth)
-        println(rect)
-        println(circleRect)
         var path = CGPathCreateMutable()
         CGPathAddEllipseInRect(path, nil, circleRect)
         CGContextAddPath(ctx, path)
         CGContextSetLineWidth(ctx, edgeWidth)
-        CircleState.white.set()
+        UnlockInfo.normalColor.set()
         CGContextStrokePath(ctx)
     }
     // 绘制内圆，且实心
@@ -77,7 +68,7 @@ class UnlockInfo: UIView {
         var path = CGPathCreateMutable()
         CGPathAddEllipseInRect(path, nil, rect)
         CGContextAddPath(ctx, path)
-        CircleState.blue.set()
+        UnlockInfo.selectedColor.set()
         CGContextFillPath(ctx)
     }
     required init(coder aDecoder: NSCoder) {

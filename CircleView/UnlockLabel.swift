@@ -1,22 +1,10 @@
-//
-//  UnlockLabel.swift
-//  Swift-GestureUnlock
-//
-//  Created by csj on 15/6/18.
-//  Copyright (c) 2015年 csj. All rights reserved.
-//
-
 import UIKit
 
 extension CALayer{
     func shake(){
         var kfa = CAKeyframeAnimation(keyPath: "transform.translation.x")
         
-        var s = 5
-        
         kfa.values = [-5,0,5,0,-5,0,5,0]
-        
-        println(kfa.values)
         
         kfa.duration = 0.3
         
@@ -33,15 +21,16 @@ class UnlockLabel: UILabel {
         y: UIScreen.mainScreen().bounds.size.height * 1.45 / 5,
         width: UIScreen.mainScreen().bounds.size.width,
         height: 14)
+    static let fontSizeRadio: CGFloat = 0.04
+    static let normalColor: UIColor = CircleState.white
+    static let warnColor: UIColor = CircleState.red
 
     override init(frame: CGRect?) {
         var nframe = frame ?? UnlockLabel.frame
         super.init(frame: nframe)
-        self.text = "test"
         self.textColor = CircleState.white
-        //self.numberOfLines = 0
-        //self.sizeToFit()
-        self.font = UIFont.systemFontOfSize(14.0)
+        var fontSize = UIScreen.mainScreen().bounds.size.width * UnlockLabel.fontSizeRadio
+        self.font = UIFont.systemFontOfSize(fontSize)
         self.textAlignment = NSTextAlignment.Center
     }
     
@@ -50,16 +39,15 @@ class UnlockLabel: UILabel {
     }
     func showNormalMsg(msg: String){
         self.text = msg
-        self.textColor = CircleState.white
+        self.textColor = UnlockLabel.normalColor
     }
     func showWarnMsg(msg: String){
         self.text = msg
-        self.textColor = CircleState.red
+        self.textColor = UnlockLabel.warnColor
     }
     func showWarnMsgAndShake(msg: String){
         self.text = msg
-        self.textColor = CircleState.red
+        self.textColor = UnlockLabel.warnColor
         self.layer.shake()
     }
-    
 }
