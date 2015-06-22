@@ -7,10 +7,36 @@ swift版支付宝解锁仿造
 
 使用方法：
 在viewLoad中初始化，GestureUnlockViewController，主要有3个托管，设置成功，验证结果，重设结果
-      var psw: String!
-      var nextView: GestureUnlockViewController!
-      override func viewDidLoad() {
-       nextView = GestureUnlockViewController()
+    var psw: String!
+    var nextView: GestureUnlockViewController!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.view.backgroundColor = rgba(13, g: 52, b: 89, a: 1)
+        
+        var btn = UIButton()
+        btn.frame = CGRect(x: 100,y: 100,width: 100,height: 30)
+        btn.setTitle("设置", forState: UIControlState.Normal)
+        btn.addTarget(self, action: "set:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.view.addSubview(btn)
+        
+        btn = UIButton()
+        btn.frame = CGRect(x: 100,y: 130,width: 100,height: 30)
+        btn.setTitle("验证", forState: UIControlState.Normal)
+        btn.addTarget(self, action: "verify:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.view.addSubview(btn)
+        
+        btn = UIButton()
+        btn.frame = CGRect(x: 100,y: 160,width: 100,height: 30)
+        btn.setTitle("重设", forState: UIControlState.Normal)
+        btn.addTarget(self, action: "reset:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.view.addSubview(btn)
+        
+        nextView = GestureUnlockViewController()
         nextView.setSuc = {
             (psw) in
             println("设置密码为 \(psw)")
@@ -35,7 +61,6 @@ swift版支付宝解锁仿造
         }
     }
     
-    //然后就是3个按钮对应的action
     func set(sender: AnyObject){
         nextView.state = GestureUnlockState.Set
         self.navigationController?.pushViewController(nextView, animated: true)
@@ -50,10 +75,6 @@ swift版支付宝解锁仿造
         nextView.tpsw = psw ?? "0125"
         self.navigationController?.pushViewController(nextView, animated: true)
     }
-
-
-
-
 回头上图！
 设置<br>
 ![](https://github.com/csjlengxiang/Swift-GestureUnlock/blob/master/设置.gif)<br>
