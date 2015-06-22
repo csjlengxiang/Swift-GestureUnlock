@@ -22,13 +22,13 @@ class UnlockLabel: UILabel {
         width: UIScreen.mainScreen().bounds.size.width,
         height: 14)
     static let fontSizeRadio: CGFloat = 0.04
-    static let normalColor: UIColor = CircleState.white
-    static let warnColor: UIColor = CircleState.red
+    static let normalColor: UIColor = CommonConfig.white
+    static let warnColor: UIColor = CommonConfig.red
 
     override init(frame: CGRect?) {
         var nframe = frame ?? UnlockLabel.frame
         super.init(frame: nframe)
-        self.textColor = CircleState.white
+        self.textColor = CommonConfig.white
         var fontSize = UIScreen.mainScreen().bounds.size.width * UnlockLabel.fontSizeRadio
         self.font = UIFont.systemFontOfSize(fontSize)
         self.textAlignment = NSTextAlignment.Center

@@ -1,8 +1,5 @@
 import UIKit
 
-enum GestureUnlockState {
-    case Set, Verify, Reset
-}
 class GestureUnlockViewController: UIViewController {
     // mark = 初始化都在这里...统一管理
     var state: GestureUnlockState! {
@@ -10,23 +7,20 @@ class GestureUnlockViewController: UIViewController {
             stateInit()
         }
     }
-    var tpsw: NSString!
+    var tpsw: String!
     var unlock: Unlock!
     var rightBtn: UIBarButtonItem!
     var unlockInfo: UnlockInfo!
     var unlockLabel: UnlockLabel!
     var wrongCnt = 0
     
-    var setSuc: ((NSString)->Void)?
+    var setSuc: ((String)->Void)?
     var verifyResult:((Bool)->Void)?
     var resetResult:((Bool)->Void)?
     
-    func rgba(r: Int, g: Int, b: Int, a: CGFloat)->UIColor{
-        return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: a)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = rgba(13, g: 52, b: 89, a: 1)
+        self.view.backgroundColor = CommonConfig.GestureUnlockViewController.backgroundColor
         prepare()
         stateInit()
     }
@@ -37,28 +31,27 @@ class GestureUnlockViewController: UIViewController {
             tpsw = nil
             unlock?.processClear()
             navigationItem.rightBarButtonItem = nil
-            unlockInfo?.psw = nil
+            unlockInfo?.state = .Normal
             unlockInfo?.hidden = false
             unlockLabel?.showNormalMsg("绘制解锁图案")
-            navigationItem.title? = "设置手势密码"
-            return
+            navigationItem.title = "设置手势密码"
+            
         case GestureUnlockState.Verify:
             unlock?.processClear()
             navigationItem.rightBarButtonItem = nil
             unlockInfo?.hidden = true
             unlockLabel?.showNormalMsg("请输入手势密码")
             wrongCnt = 0
-            navigationItem.title? = "验证手势密码"
+            navigationItem.title = "验证手势密码"
             //self.navigationController?.navigationBarHidden = true
-            return
+            
         case GestureUnlockState.Reset:
             unlock?.processClear()
             navigationItem.rightBarButtonItem = nil
             unlockInfo?.hidden = true
             unlockLabel?.showNormalMsg("请输入原手势密码")
             wrongCnt = 0
-            navigationItem.title? = "重设手势密码"
-            return
+            navigationItem.title = "重设手势密码"
         }
         
     }
@@ -68,8 +61,8 @@ extension GestureUnlockViewController{
     func prepare(){
         unlock = Unlock(frame: nil)
         unlock.result = {
-            (psw: NSString) in
-            if psw.length < 4{
+            psw in
+            if count(psw) < 4{
                 self.unlock.processWrong()
                 return
             }
@@ -94,17 +87,15 @@ extension GestureUnlockViewController{
         
         unlockLabel = UnlockLabel(frame: nil)
         self.view.addSubview(unlockLabel)
-        
-        
     }
 }
 // mark - process
 extension GestureUnlockViewController{
-    func processSet(psw: NSString){
+    func processSet(psw: String){
         if tpsw == nil {
             tpsw = psw
             unlock.processRight()
-            unlockInfo.psw = psw
+            unlockInfo.state = UnlockInfoState.Selected(psw)
             unlockLabel.showWarnMsg("再次绘制解锁图案")
         } else if tpsw == psw {
             setSuc!(psw)
@@ -115,7 +106,7 @@ extension GestureUnlockViewController{
             unlock.processWrong()
         }
     }
-    func processVerify(psw: NSString){
+    func processVerify(psw: String){
         if tpsw == psw{
             println("验证成功")
             verifyResult?(true)
@@ -127,7 +118,7 @@ extension GestureUnlockViewController{
             unlock.processWrong()
         }
     }
-    func processReset(psw: NSString){
+    func processReset(psw: String){
         if tpsw == psw {
             println("重置成功")
             resetResult?(true)

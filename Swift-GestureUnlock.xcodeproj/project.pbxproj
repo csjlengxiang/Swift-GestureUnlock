@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		641AEE521B379964003582E1 /* CommonConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641AEE511B379964003582E1 /* CommonConfig.swift */; };
 		646579341B2EB2BD005935E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646579331B2EB2BD005935E4 /* AppDelegate.swift */; };
 		646579391B2EB2BD005935E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 646579371B2EB2BD005935E4 /* Main.storyboard */; };
 		6465793B1B2EB2BD005935E4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6465793A1B2EB2BD005935E4 /* Images.xcassets */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		641AEE511B379964003582E1 /* CommonConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonConfig.swift; path = CircleView/CommonConfig.swift; sourceTree = "<group>"; };
 		6465792E1B2EB2BD005935E4 /* Swift-GestureUnlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swift-GestureUnlock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		646579321B2EB2BD005935E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		646579331B2EB2BD005935E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				6465795A1B2EB4D7005935E4 /* Circle.swift */,
 				6488707A1B2FC04B004D474F /* Unlock.swift */,
 				64A131401B32D3AB00287E93 /* UnlockLabel.swift */,
+				641AEE511B379964003582E1 /* CommonConfig.swift */,
 			);
 			name = CircleView;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				641AEE521B379964003582E1 /* CommonConfig.swift in Sources */,
 				64A1313E1B32B85F00287E93 /* ViewController.swift in Sources */,
 				6465795B1B2EB4D7005935E4 /* Circle.swift in Sources */,
 				64A1313C1B32B75D00287E93 /* UnlockInfo.swift in Sources */,

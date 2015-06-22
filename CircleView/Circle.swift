@@ -1,83 +1,19 @@
 import UIKit
 
-enum CircleState{
-    case Normal, Selected, Error, LSelected, LError
-    
-    static let white = CircleState.rgba(241, g: 241, b: 241, a: 1.0)
-    static let blue = CircleState.rgba(34, g: 178, b: 246, a: 1.0)
-    static let red = CircleState.rgba(254, g: 82, b: 92, a: 1.0)
-    static let tra = UIColor.clearColor()
-    
-    func getOutColor()->UIColor {
-        switch self {
-        case .Normal:
-            return CircleState.white
-        case .Selected:
-            return CircleState.blue
-        case .Error:
-            return CircleState.red
-        case .LSelected:
-            return CircleState.blue
-        case .LError:
-            return CircleState.red
-        default:
-            return CircleState.tra
-        }
-    }
-    func getInColor()->UIColor {
-        switch self {
-        case .Normal:
-            return CircleState.tra
-//        case .Selected:
-//            return CircleState.blue
-//        case .Error:
-//            return CircleState.rgba(254, g: 82, b: 92, a: 1.0)
-//        case .LSelected:
-//            return CircleState.rgba(34, g: 178, b: 246, a: 1.0)
-//        case .LError:
-//            return CircleState.rgba(254, g: 82, b: 92, a: 1.0)
-        default:
-            return getOutColor()
-        }
-    }
-    func getTrColor()->UIColor {
-        switch self {
-//        case .Normal:
-//            return CircleState.tra
-//        case .Selected:
-//            return CircleState.rgba(34, g: 178, b: 246, a: 1.0)
-//        case .Error:
-//            return CircleState.rgba(254, g: 82, b: 92, a: 1.0)
-        case .LSelected:
-            return CircleState.tra
-        case .LError:
-            return CircleState.tra
-        default:
-            return getInColor()
-        }
-    }
-    static func rgba(r: Int, g: Int, b: Int, a: CGFloat)->UIColor{
-        return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: a)
-    }
-}
-
 class Circle: UIView {
-    // 外圆线宽
-    static let edgeWidthRadio: CGFloat = 0.02 //取圆直径的百分比
-    static let inRadio: CGFloat = 0.4 //取内圆占外圆的百分比
-    static let trPosRadio: CGFloat = 0.8 //以圆心为中心，偏移半径的百分比
-    static let trLenRadio: CGFloat = 0.4 //同上
     var state: CircleState = CircleState.Normal {
         didSet{
-            self.setNeedsDisplay()
+            setNeedsDisplay()
         }
     }
     var angle: CGFloat = 0
-    var row: Int!
-    var col: Int!
+    var row: Int
+    var col: Int
 
-    init(){
-        super.init(frame: CGRectZero)
+    init (row: Int, col: Int, frame: CGRect){
+        self.row = row
+        self.col = col
+        super.init(frame: frame)
         backgroundColor = UIColor.clearColor()
     }
     required init(coder aDecoder: NSCoder) {
@@ -87,8 +23,8 @@ class Circle: UIView {
 // mark - 设置angle
 extension Circle{
     func setAagle(nextCircle: Circle){
-        var lhs = nextCircle.col - self.col
-        var rhs = nextCircle.row - self.row
+        var lhs = nextCircle.col - col
+        var rhs = nextCircle.row - row
         angle = atan2(CGFloat(lhs), CGFloat(rhs)) + CGFloat(M_PI_2)
     }
 }
@@ -111,13 +47,9 @@ extension Circle{
     // 绘制外圆
     func drawOutCircle(ctx: CGContextRef, rect: CGRect){
         let len = rect.width
-        let edgeWidth = len * Circle.edgeWidthRadio
+        let edgeWidth = len * CommonConfig.Circle.edgeWidthRadio
         // 注意ios绘制的线是，内外以path为分割各一半，于是edgeWidth要取一半...可以调大edgeWidth试下
-        var circleRect = CGRect(
-            x: edgeWidth / 2,
-            y: edgeWidth / 2,
-            width: len - edgeWidth,
-            height: len - edgeWidth)
+        var circleRect = CGRect(x: edgeWidth / 2, y: edgeWidth / 2, width: len - edgeWidth, height: len - edgeWidth)
         var path = CGPathCreateMutable()
         CGPathAddEllipseInRect(path, nil, circleRect)
         CGContextAddPath(ctx, path)
@@ -128,13 +60,9 @@ extension Circle{
     // 绘制内圆，且实心
     func drawInCircle(ctx: CGContextRef, rect: CGRect){
         var path = CGPathCreateMutable()
-        var len = rect.width * Circle.inRadio / 2
+        var len = rect.width * CommonConfig.Circle.inRadio / 2
         var start = rect.width / 2 - len
-        var circleRect = CGRect(
-            x: start,
-            y: start,
-            width: len * 2,
-            height: len * 2)
+        var circleRect = CGRect(x: start, y: start, width: len * 2, height: len * 2)
         CGPathAddEllipseInRect(path, nil, circleRect)
         CGContextAddPath(ctx, path)
         state.getInColor().set()
@@ -143,9 +71,9 @@ extension Circle{
     // 绘制三角形
     func drawTrangle(ctx: CGContextRef, rect: CGRect){
         var path = CGPathCreateMutable()
-        var len = rect.size.width / 2 * Circle.trLenRadio
+        var len = rect.size.width / 2 * CommonConfig.Circle.trLenRadio
         var startX = rect.size.width / 2
-        var startY = rect.size.width / 2 * (1.0 - Circle.trPosRadio)
+        var startY = rect.size.width / 2 * (1.0 - CommonConfig.Circle.trPosRadio)
         CGPathMoveToPoint(path, nil, startX, startY);
         CGPathAddLineToPoint(path, nil, startX - len/2, startY + len/2);
         CGPathAddLineToPoint(path, nil, startX + len/2, startY + len/2);
@@ -154,4 +82,3 @@ extension Circle{
         CGContextFillPath(ctx);
     }
 }
-
