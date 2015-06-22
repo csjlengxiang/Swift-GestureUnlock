@@ -6,7 +6,7 @@ swift版支付宝解锁仿造
 功能跟上述源码差不多，但是代码短很多很多，大概650行代码<br>
 
 使用方法：
-在viewLoad中初始化，GestureUnlockViewController，主要有3个托管，设置成功，验证结果，重设结果
+在viewLoad中初始化，GestureUnlockViewController，主要有3个托管（其实我直接弄了个闭包），1、设置成功，2、验证结果，3、重设结果
     
     
         var psw: String!
