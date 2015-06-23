@@ -14,6 +14,9 @@ class ViewController: UIViewController {
         return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: a)
     }
     
+    var psw: String!
+    var nextView: GestureUnlockViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,9 +67,6 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-    var psw: String!
-    var nextView: GestureUnlockViewController!
     
     func set(sender: AnyObject){
         nextView.state = GestureUnlockState.Set

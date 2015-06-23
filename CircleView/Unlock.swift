@@ -44,9 +44,7 @@ extension Unlock{
         var ctx = UIGraphicsGetCurrentContext()
         // 裁剪时候要用到
         CGContextAddRect(ctx, rect)
-        for circle in circles {
-            CGContextAddEllipseInRect(ctx, circle.frame); // 确定"剪裁"的形状
-        }
+        circles.map { CGContextAddEllipseInRect(ctx, $0.frame) }// 确定"剪裁"的形状
         CGContextEOClip(ctx)
         // 裁剪代码
         var first = true
@@ -82,6 +80,7 @@ extension Unlock{
             if CGRectContainsPoint(circle.frame, point) { //应当判断点是否在圆内，但是这个只是个矩形，暂且如此
                 circle.state = CircleState.LSelected
                 touchedCircles.append(circle)
+                break
             }
         }
         setNeedsDisplay()
@@ -114,6 +113,7 @@ extension Unlock{
                 }
                 circle.state = CircleState.LSelected
                 touchedCircles.append(circle)
+                break
             }
         }
         setNeedsDisplay()
@@ -121,11 +121,7 @@ extension Unlock{
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         curPoint = CGPointZero
         self.setNeedsDisplay()
-        var ret = ""
-        for circle in touchedCircles {
-            var idx = circle.row * 3 + circle.col
-            ret += "\(idx)"
-        }
+        var ret = touchedCircles.reduce(""){ $0 + String($1.row * 3 + $1.col) }
         println(ret)
         result?(ret)
     }
@@ -153,9 +149,7 @@ extension Unlock{
         }
     }
     func processClear(){
-        for circle in touchedCircles {
-            circle.state = CircleState.Normal
-        }
+        touchedCircles.map{ $0.state = CircleState.Normal }
         touchedCircles.removeAll(keepCapacity: false)
         state = UnlockState.Normal
     }
