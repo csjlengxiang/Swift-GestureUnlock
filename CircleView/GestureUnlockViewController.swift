@@ -59,10 +59,10 @@ class GestureUnlockViewController: UIViewController {
 // mark - view prepare
 extension GestureUnlockViewController{
     func prepare(){
-        unlock = Unlock(frame: nil)
+        unlock = Unlock()
         unlock.result = {
             psw in
-            if count(psw) < 4{
+            if psw.characters.count < 4{
                 self.unlock.processWrong()
                 return
             }
@@ -82,10 +82,10 @@ extension GestureUnlockViewController{
         
         rightBtn = UIBarButtonItem(title: "重设", style: UIBarButtonItemStyle.Done, target: self, action: "reset:")
         
-        unlockInfo = UnlockInfo(frame: nil)
+        unlockInfo = UnlockInfo()
         self.view.addSubview(unlockInfo)
         
-        unlockLabel = UnlockLabel(frame: nil)
+        unlockLabel = UnlockLabel()
         self.view.addSubview(unlockLabel)
     }
 }
@@ -108,7 +108,7 @@ extension GestureUnlockViewController{
     }
     func processVerify(psw: String){
         if tpsw == psw{
-            println("验证成功")
+            print("验证成功")
             verifyResult?(true)
             unlock.processRight()
             navigationController?.popViewControllerAnimated(true)
@@ -120,7 +120,7 @@ extension GestureUnlockViewController{
     }
     func processReset(psw: String){
         if tpsw == psw {
-            println("重置成功")
+            print("重置成功")
             resetResult?(true)
             state = GestureUnlockState.Set
             unlockLabel.showNormalMsg("重新绘制解锁图案")
@@ -136,7 +136,7 @@ extension GestureUnlockViewController{
     func wrongCount(){
         wrongCnt++
         if wrongCnt >= 5 {
-            println("错误超过5次，验证失败")
+            print("错误超过5次，验证失败")
             resetResult?(false)
             navigationController?.popViewControllerAnimated(true)
         }
