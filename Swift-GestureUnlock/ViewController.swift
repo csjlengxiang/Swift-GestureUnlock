@@ -46,24 +46,24 @@ class ViewController: UIViewController {
         nextView = GestureUnlockViewController()
         nextView.setSuc = {
             (psw) in
-            println("设置密码为 \(psw)")
+            print("设置密码为 \(psw)")
             self.psw = psw
         }
         nextView.verifyResult = {
             (result) in
             if result {
-                println("验证密码成功！！！！！！！！")
+                print("验证密码成功！！！！！！！！")
             } else {
-                println("尝试5次验证密码都失败了")
+                print("尝试5次验证密码都失败了")
             }
         }
         nextView.resetResult = {
             (result) in
             if result {
                 self.psw = nil
-                println("清空密码了")
+                print("清空密码了")
             } else {
-                println("尝试5次修改密码都失败了")
+                print("尝试5次修改密码都失败了")
             }
         }
     }

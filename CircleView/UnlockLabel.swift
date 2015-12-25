@@ -2,7 +2,7 @@ import UIKit
 
 extension CALayer{
     func shake(){
-        var kfa = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        let kfa = CAKeyframeAnimation(keyPath: "transform.translation.x")
         
         kfa.values = [-5,0,5,0,-5,0,5,0]
         
@@ -25,16 +25,19 @@ class UnlockLabel: UILabel {
     static let normalColor: UIColor = CommonConfig.white
     static let warnColor: UIColor = CommonConfig.red
 
-    override init(frame: CGRect?) {
-        var nframe = frame ?? UnlockLabel.frame
-        super.init(frame: nframe)
+    convenience init() {
+        self.init(frame: UnlockLabel.frame)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.textColor = CommonConfig.white
-        var fontSize = UIScreen.mainScreen().bounds.size.width * UnlockLabel.fontSizeRadio
+        let fontSize = UIScreen.mainScreen().bounds.size.width * UnlockLabel.fontSizeRadio
         self.font = UIFont.systemFontOfSize(fontSize)
         self.textAlignment = NSTextAlignment.Center
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     func showNormalMsg(msg: String){
